@@ -3,12 +3,14 @@ import {IGifBlock} from '../GifBlock/GifBlock';
 import GifList from '../GifsList/GifList'
 import Search from '../Search/Search'
 import ResultInfo from '../ResultInfo/ResultInfo'
+import './App.css'
 
-type search_type = 'gifs' | 'stickers';
+type search_type = 'gifs' | 'stickers' | 'myGifs';
 
 interface IState {
     gifs: Array<IGifBlock>;
     myGifs: Array<IGifBlock>;
+    content_type: 'gifs' | 'myGifs'
     search: { type: search_type, condition: string, offset: number }
 
 }
@@ -17,6 +19,7 @@ class App extends React.PureComponent {
     public state: IState = {
         gifs: [],
         myGifs: [],
+        content_type: 'gifs',
         search: {
             type: 'gifs',
             condition: '',
@@ -30,13 +33,13 @@ class App extends React.PureComponent {
         this.getMyGifs();
     }
 
-    componentDidMount(){
+    componentDidMount() {
         this.load();
     }
 
     load = (type = this.state.search.type, condition = this.state.search.condition) => {
         let gifs = this.state.gifs,
-            myGifs=this.state.myGifs,
+            myGifs = this.state.myGifs,
             offset = this.state.search.offset;
 
         if (type !== this.state.search.type || condition !== this.state.search.condition) {
@@ -60,8 +63,7 @@ class App extends React.PureComponent {
             const response = await fetch(input);
             const json = await response.json();
             let newGifs = await json.data.map((g: any) => {
-                const saved = myGifs.some(mg=>mg.id===g.id);
-                console.log(g.id, myGifs);
+                const saved = myGifs.some(mg => mg.id === g.id);
                 return {
                     id: g.id,
                     title: g.title,
@@ -73,6 +75,7 @@ class App extends React.PureComponent {
             this.setState({
                 ...this.state,
                 gifs: [...gifs, ...newGifs],
+                content_type: 'gifs',
                 search: {
                     type: type,
                     condition: condition,
@@ -83,6 +86,9 @@ class App extends React.PureComponent {
         request();
     };
 
+    loadGifs = () => {
+        this.setState({...this.state, content_type: 'gifs'});
+    };
     searchWithNewType = (type: search_type) => {
         this.load(type);
     };
@@ -95,43 +101,59 @@ class App extends React.PureComponent {
         const {gifs, myGifs} = this.state;
 
         const gif = this.state.gifs.filter(g => g.id === id)[0];
-        let newMyGifs,newGifs: Array<IGifBlock>;
+        let newMyGifs, newGifs: Array<IGifBlock>;
 
-        console.log(gifs, myGifs);
         if (myGifs.some(g => g.id === gif.id)) {
             newMyGifs = myGifs.filter(g => g.id !== id);
-            newGifs = gifs.map(g=>g.id === gif.id ? {...g, saved:false} : g);
-        }
-        else {
-            newMyGifs = [...myGifs, gif];
-            newGifs = gifs.map(g=>g.id === gif.id ? {...g, saved:true} : g);
+            newGifs = gifs.map(g => g.id === gif.id ? {...g, saved: false} : g);
+        } else {
+            newMyGifs = [...myGifs, {...gif, saved: true}];
+            newGifs = gifs.map(g => g.id === gif.id ? {...g, saved: true} : g);
         }
 
         localStorage.setItem('data', JSON.stringify({myGifs: newMyGifs}));
-        this.setState({...this.state,gifs:newGifs, myGifs: newMyGifs});
+        this.setState({...this.state, gifs: newGifs, myGifs: newMyGifs});
     };
 
-    getMyGifs = () =>{
-        const json=localStorage.getItem('data') as string;
-        const data=JSON.parse(json);
-        this.setState({...this.state,myGifs:[...data.myGifs]})
+    getMyGifs = () => {
+        if (!localStorage.getItem('data')) return null;
+        const json = localStorage.getItem('data') as string;
+        const data = JSON.parse(json);
+        this.setState({...this.state, myGifs: [...data.myGifs]})
+    };
+
+    loadMyGifs = () => {
+        this.setState({
+            ...this.state,
+            content_type: 'myGifs',
+        })
     };
 
     render(): React.ReactNode {
         return (
-            <>
-                <Search searchWithNewCondition={this.searchWithNewCondition}/>
-                <ResultInfo
-                    condition={this.state.search.condition}
-                    type={this.state.search.type}
-                    searchWithNewType={this.searchWithNewType}
+            <div className='App'>
+                <Search
+                    searchWithNewCondition={this.searchWithNewCondition}
+                    loadMyGifs={this.loadMyGifs}
+                    loadGifs={this.loadGifs}
+                    content_type={this.state.content_type}
                 />
-                <GifList
-                    gifs={this.state.gifs}
-                    load={this.load}
-                    save={this.saveMyGifs}
-                />
-            </>
+                <div className='App__container'>
+                    <ResultInfo
+                        condition={this.state.search.condition}
+                        type={this.state.search.type}
+                        searchWithNewType={this.searchWithNewType}
+                        content_type={this.state.content_type}
+                    />
+                    <GifList
+                        gifs={this.state.gifs}
+                        myGifs={this.state.myGifs}
+                        load={this.load}
+                        save={this.saveMyGifs}
+                        content_type={this.state.content_type}
+                    />
+                </div>
+            </div>
         );
     }
 

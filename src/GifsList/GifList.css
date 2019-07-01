@@ -1,0 +1,24 @@
+.GifList {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.GifList__ul {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.GifList__button-load {
+    height: 30px;
+    width: 130px;
+    background-color: #8900c4;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    margin-bottom: 30px;
+    /*font*/
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 14px;
+    color: black;
+}

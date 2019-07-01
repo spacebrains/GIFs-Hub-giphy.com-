@@ -1,0 +1,34 @@
+.ResultInfo {
+    display: flex;
+    height: 65px;
+    align-items: center;
+}
+
+.ResultInfo__span {
+    color: white;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.ResultInfo__aside {
+    margin-left: 40px;
+}
+
+.ResultInfo__radio {
+    display: none;
+}
+
+.ResultInfo__label {
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+    margin: 2px;
+}
+
+.ResultInfo__radio:checked + .ResultInfo__label {
+    color: black;
+    background-color: #8900c4;
+    padding: 2px 5px;
+    margin-left: 3px;
+    border-radius: 3px;
+}

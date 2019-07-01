@@ -1,0 +1,11 @@
+.App {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+.App__container {
+    width: 1300px;
+
+}

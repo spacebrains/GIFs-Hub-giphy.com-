@@ -1,18 +1,22 @@
 import * as React from 'react';
-import {GifBlock,IGifBlock} from "../GifBlock/GifBlock";
+import {GifBlock, IGifBlock} from "../GifBlock/GifBlock";
+import './GifList.css'
 
 interface IProps {
-    gifs:Array<IGifBlock>;
-    load:Function;
-    save:Function;
+    gifs: Array<IGifBlock>;
+    myGifs: Array<IGifBlock>;
+    load: Function;
+    save: Function;
+    content_type: 'gifs' | 'myGifs'
 }
 
-const GifsList: React.FC<IProps> = ({gifs,load,save}: IProps) => {
-    const onLoad=()=>load();
+const GifsList: React.FC<IProps> = ({gifs, load, save, content_type, myGifs}: IProps) => {
+    let currentGifs = content_type === 'gifs' ? gifs : myGifs;
+    const onLoad = () => load();
     return (
-        <section>
-            <ul>
-                {gifs.map(g=>
+        <section className='GifList'>
+            <ul className='GifList__ul'>
+                {currentGifs.map(g =>
                     <li key={g.id}>
                         <GifBlock
                             id={g.id}
@@ -25,7 +29,13 @@ const GifsList: React.FC<IProps> = ({gifs,load,save}: IProps) => {
                     </li>
                 )}
             </ul>
-            <button onClick={onLoad}>LOAD MORE</button>
+            <button
+                onClick={onLoad}
+                className="GifList__button-load"
+                hidden={content_type === 'myGifs'}>
+                LOAD MORE
+            </button>
+
         </section>
     );
 };

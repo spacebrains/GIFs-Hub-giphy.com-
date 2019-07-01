@@ -1,0 +1,46 @@
+.GifBlock {
+    width: 355px;
+    height: 255px;
+    margin: 0 20px 15px 0;
+}
+
+.GifBlock__img-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.GifBlock__footer {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.GifBlock__info {
+
+    display: flex;
+    flex-direction: column;
+    font-size: 12px;
+}
+
+.GifBlock__title {
+    color: #8900c4;
+    font-size: 16px;
+}
+
+.GifBlock__date {
+    color: #acabab;
+}
+
+.GifBlock__save-button {
+    height: 20px;
+    width: 55px;
+    background-color: #8900c4;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    /*font*/
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 14px;
+    color: black;
+}

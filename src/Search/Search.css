@@ -1,0 +1,105 @@
+.Search {
+    background-color: #1b1b1b;
+    height: 65px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.Search__container {
+    width: 1300px;
+    display: flex;
+    align-items: center;
+}
+
+.Search__h1-first {
+    color: white;
+}
+
+.Search__h1-second {
+    color: black;
+    background-color: #8900c4;
+    padding: 2px 5px;
+    margin-left: 3px;
+    border-radius: 6px;
+}
+
+.Search__form {
+    display: flex;
+    height: 26px;
+    width: 565px;
+    align-items: center;
+    margin-left: 40px;
+}
+
+.Search__input-container {
+    height: 100%;
+    width: 100%;
+    margin: 10px 0;
+    background: #363636;
+    cursor: pointer;
+    /*flex*/
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.Search__input {
+    width: 90%;
+    height: 20px;
+    background: #363636;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    /*font*/
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 18px;
+    color: white;
+}
+
+.Search__input::-webkit-input-placeholder {
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 15px;
+    font-style: italic;
+    color: #686868;
+}
+
+.Search__input:-moz-placeholder {
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 15px;
+    font-style: italic;
+    color: #686868;
+}
+
+.Search__search-button {
+    height: 100%;
+    width: 65px;
+    background-color: #8900c4;
+    border: none;
+    border-radius: 0 3px 3px 0;
+    cursor: pointer;
+    /*font*/
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 16px;
+    color: black;
+
+}
+
+.Search__save-button {
+    height: 26px;
+    margin-left: 160px;
+    width: 65px;
+    background-color: #8900c4;
+    border: none;
+    border-radius: 0 3px 3px 0;
+    cursor: pointer;
+    /*font*/
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 16px;
+    color: black;
+
+}
+
+.Search__span {
+    color: #acabab;
+}
