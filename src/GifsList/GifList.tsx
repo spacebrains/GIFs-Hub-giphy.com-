@@ -1,5 +1,6 @@
 import * as React from 'react';
-import {GifBlock, IGifBlock} from "../GifBlock/GifBlock";
+import {content_type, IGifBlock} from "../types";
+import GifBlock from "../GifBlock/GifBlock";
 import './GifList.css'
 
 interface IProps {
@@ -7,7 +8,7 @@ interface IProps {
     myGifs: Array<IGifBlock>;
     load: Function;
     save: Function;
-    content_type: 'gifs' | 'myGifs'
+    content_type: content_type;
 }
 
 const GifsList: React.FC<IProps> = ({gifs, load, save, content_type, myGifs}: IProps) => {

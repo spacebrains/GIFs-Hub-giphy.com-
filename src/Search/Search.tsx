@@ -1,11 +1,12 @@
 import * as React from "react";
 import './Search.css'
+import {content_type} from "../types";
 
 interface IProps {
     searchWithNewCondition: Function;
     loadMyGifs: Function;
     loadGifs: Function;
-    content_type: 'gifs' | 'myGifs'
+    content_type: content_type;
 }
 
 const Search: React.FC<IProps> = ({searchWithNewCondition, loadMyGifs, loadGifs, content_type}: IProps) => {

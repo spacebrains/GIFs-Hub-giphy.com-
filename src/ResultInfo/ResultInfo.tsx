@@ -1,8 +1,9 @@
 import * as React from 'react';
 import './ResultInfo.css'
+import {content_type} from "../types";
 
 interface IProps {
-    content_type: 'gifs' | 'myGifs'
+    content_type: content_type;
     condition: string;
     type: string
     searchWithNewType: Function;

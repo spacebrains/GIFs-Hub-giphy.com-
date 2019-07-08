@@ -1,19 +1,14 @@
 import * as React from 'react';
+import {IGifBlock} from "../types";
 import './GifBlock.css'
 
-export interface IGifBlock {
-    id: string
-    src: string;
-    title: string;
-    import_datetime: string;
-    saved: boolean;
-}
+
 
 interface IProps extends IGifBlock {
     save: Function;
 }
 
-export const GifBlock: React.FC<IProps> = (data: IProps) => {
+const GifBlock: React.FC<IProps> = (data: IProps) => {
     const {id, src, title, import_datetime, saved, save} = data;
 
     const onSave = () => save(id);
@@ -40,3 +35,5 @@ export const GifBlock: React.FC<IProps> = (data: IProps) => {
         </article>
     );
 };
+
+export default GifBlock;

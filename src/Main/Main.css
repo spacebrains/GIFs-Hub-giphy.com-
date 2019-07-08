@@ -1,0 +1,41 @@
+.Main{
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.Main__h1{
+    font-size: 64px;
+}
+
+.Main__h1-first {
+    color: white;
+}
+
+.Main__h1-second {
+    color: black;
+    background-color: #8900c4;
+    padding: 2px 5px;
+    margin-left: 3px;
+    border-radius: 6px;
+}
+
+.Main__button {
+    height: 26px;
+    width: 65px;
+    margin:10px;
+    padding:5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    position: relative;
+    left:-25px;
+    /*font*/
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 28px;
+    color: #8900c4;
+
+}

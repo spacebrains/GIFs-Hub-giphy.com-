@@ -1,16 +1,16 @@
 import * as React from 'react';
-import {IGifBlock} from '../GifBlock/GifBlock';
+import {search_type, content_type, IGifBlock} from "../types";
+import request from '../request'
 import GifList from '../GifsList/GifList'
 import Search from '../Search/Search'
 import ResultInfo from '../ResultInfo/ResultInfo'
 import './App.css'
 
-type search_type = 'gifs' | 'stickers' | 'myGifs';
 
 interface IState {
     gifs: Array<IGifBlock>;
     myGifs: Array<IGifBlock>;
-    content_type: 'gifs' | 'myGifs'
+    content_type: content_type;
     search: { type: search_type, condition: string, offset: number }
 
 }
@@ -27,8 +27,6 @@ class App extends React.PureComponent {
         }
     };
 
-    public key = 'wwD72OA0V6WC8mR1xMTVteOQO3VdR1LY';
-
     componentWillMount(): void {
         this.getMyGifs();
     }
@@ -38,6 +36,7 @@ class App extends React.PureComponent {
     }
 
     load = (type = this.state.search.type, condition = this.state.search.condition) => {
+
         let gifs = this.state.gifs,
             myGifs = this.state.myGifs,
             offset = this.state.search.offset;
@@ -49,29 +48,7 @@ class App extends React.PureComponent {
             offset = gifs.length;
         }
 
-        let input: string;
-        if (type === 'gifs' && condition === '')
-            input = `http://api.giphy.com/v1/gifs/trending?key=${this.key}&offset=${offset}`;
-        else if (type === 'stickers' && condition === '')
-            input = `http://api.giphy.com/v1/stickers/trending?key=${this.key}&offset=${offset}`;
-        else if (type === 'gifs' && condition !== '')
-            input = `http://api.giphy.com/v1/gifs/search?key=${this.key}&offset=${offset}&q=${condition}`;
-        else if (type === 'stickers' && condition !== '')
-            input = `http://api.giphy.com/v1/stickers/search?key=${this.key}&offset=${offset}&q=${condition}`;
-
-        const request = async () => {
-            const response = await fetch(input);
-            const json = await response.json();
-            let newGifs = await json.data.map((g: any) => {
-                const saved = myGifs.some(mg => mg.id === g.id);
-                return {
-                    id: g.id,
-                    title: g.title,
-                    src: g.images.fixed_height.url,
-                    import_datetime: g.import_datetime,
-                    saved: saved
-                }
-            });
+        const setAnswer = (newGifs: Array<IGifBlock>) => {
             this.setState({
                 ...this.state,
                 gifs: [...gifs, ...newGifs],
@@ -83,32 +60,38 @@ class App extends React.PureComponent {
                 }
             });
         };
-        request();
+
+        request(type, condition, offset, myGifs, setAnswer);
     };
 
     loadGifs = () => {
         this.setState({...this.state, content_type: 'gifs'});
     };
+
     searchWithNewType = (type: search_type) => {
-        this.load(type);
+        this.load(type, this.state.search.condition);
     };
 
     searchWithNewCondition = (condition: string) => {
-        this.load(undefined, condition);
+        this.load(this.state.search.type, condition);
     };
 
     saveMyGifs = (id: string) => {
         const {gifs, myGifs} = this.state;
 
-        const gif = this.state.gifs.filter(g => g.id === id)[0];
+        const gif = this.state.gifs.find(g => g.id === id)!;
+        const isMyGif = myGifs.some(g => g.id === id);
         let newMyGifs, newGifs: Array<IGifBlock>;
 
-        if (myGifs.some(g => g.id === gif.id)) {
-            newMyGifs = myGifs.filter(g => g.id !== id);
-            newGifs = gifs.map(g => g.id === gif.id ? {...g, saved: false} : g);
-        } else {
+        if (gif && !isMyGif) {
             newMyGifs = [...myGifs, {...gif, saved: true}];
             newGifs = gifs.map(g => g.id === gif.id ? {...g, saved: true} : g);
+        } else if (!gif && isMyGif) {
+            newMyGifs = myGifs.filter(g => g.id !== id);
+            newGifs = gifs;
+        } else {
+            newMyGifs = myGifs.filter(g => g.id !== id);
+            newGifs = gifs.map(g => g.id === gif.id ? {...g, saved: false} : g);
         }
 
         localStorage.setItem('data', JSON.stringify({myGifs: newMyGifs}));
