@@ -25,24 +25,26 @@ const Search: React.FC<IProps> = ({searchWithNewCondition, loadMyGifs, loadGifs,
 
     return (
         <header className="Search">
-            <div className='Search__container'>
-                <h1 className="Search__h1">
-                    <span className="Search__h1-first">Gifs</span>
-                    <span className="Search__h1-second">HUB</span>
-                </h1>
-                <form onSubmit={search} className='Search__form'>
-                    <div className='Search__input-container'>
-                        <input
-                            ref={(input: HTMLInputElement) => _condition = input}
-                            type="text"
-                            placeholder='Search over9000 gifs...'
-                            required
-                            className='Search__input'
-                        />
-                        <span onClick={deleteCondition} className='Search__span'>X</span>
-                    </div>
-                    <button className='Search__search-button'>search</button>
-                </form>
+            <div className='Search__container App__container'>
+                <div className="Search__left-block">
+                    <h1 className="Search__h1">
+                        <span className="Search__h1-first">Gifs</span>
+                        <span className="Search__h1-second">HUB</span>
+                    </h1>
+                    <form onSubmit={search} className='Search__form'>
+                        <div className='Search__input-container'>
+                            <input
+                                ref={(input: HTMLInputElement) => _condition = input}
+                                type="text"
+                                placeholder='Search over9000 gifs...'
+                                required
+                                className='Search__input'
+                            />
+                            <span onClick={deleteCondition} className='Search__span'>X</span>
+                        </div>
+                        <button className='Search__search-button'>search</button>
+                    </form>
+                </div>
                 <button
                     onClick={onLoadMyGifs}
                     hidden={content_type === 'myGifs'}

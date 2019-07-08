@@ -7,9 +7,13 @@
 }
 
 .Search__container {
-    width: 1300px;
     display: flex;
+    justify-content: space-between;
     align-items: center;
+}
+
+.Search__left-block{
+    display: flex;
 }
 
 .Search__h1-first {
@@ -86,11 +90,10 @@
 
 .Search__save-button {
     height: 26px;
-    margin-left: 160px;
     width: 65px;
     background-color: #8900c4;
     border: none;
-    border-radius: 0 3px 3px 0;
+    border-radius: 3px;
     cursor: pointer;
     /*font*/
     font-family: 'Ubuntu', sans-serif;
