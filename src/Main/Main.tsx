@@ -1,6 +1,5 @@
 import * as React from 'react';
 import Loadable from 'react-loadable';
-import App from '../App/App'
 import './Main.css'
 
 const LoadableApp = Loadable({
