@@ -21,7 +21,7 @@ class Main extends React.PureComponent {
         return (
             <>
                 {this.state.isEnter ?
-                    LoadableApp :
+                    <LoadableApp/> :
                     <main className='Main'>
                         <h1 className="Main__h1">
                             <span className="Main__h1-first">Gifs</span>
