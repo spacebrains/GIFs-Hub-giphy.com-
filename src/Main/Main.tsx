@@ -4,7 +4,7 @@ import './Main.css'
 
 const LoadableApp = Loadable({
     loader: () => import('../App/App'),
-    loading: <div>LOADING</div>,
+    loading:()=> <div>LOADING</div>,
     timeout: 10000,
     delay: 500
 });
