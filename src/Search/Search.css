@@ -12,10 +12,6 @@
     align-items: center;
 }
 
-.Search__left-block{
-    display: flex;
-}
-
 .Search__h1-first {
     color: white;
 }
@@ -31,7 +27,8 @@
 .Search__form {
     display: flex;
     height: 26px;
-    width: 565px;
+    width: 100%;
+    padding: 10%;
     align-items: center;
     margin-left: 40px;
 }
@@ -49,7 +46,7 @@
 }
 
 .Search__input {
-    width: 90%;
+    width: 95%;
     height: 20px;
     background: #363636;
     border: none;
